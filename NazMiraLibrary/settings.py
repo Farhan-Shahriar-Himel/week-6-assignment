@@ -29,7 +29,7 @@ SECRET_KEY = env('KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['https://mamar-bank-dqu4.onrender.com', 'https://www.your-domain.com']
+CSRF_TRUSTED_ORIGINS = ['https://week-6-assignment.onrender.com', 'http://*.127.0.0.1']
 
 
 # Application definition
