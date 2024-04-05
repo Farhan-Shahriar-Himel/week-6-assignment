@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="container mx-auto">
+  <div class="card card-side bg-base-100 shadow-xl">
+    <figure class="px-10 pt-10 w-[60%] p-4">
+      <img src="{{book.picture.url}}" alt="loading.." class="rounded-xl" />
+    </figure>
+    <div class="card-body justify-center">
+      <h2 class="card-title text-2xl font-bold"> {{book.title}} </h2>
+            <h2 class="font-bold">Price: <span class="text-red-500">{{book.price}} tk</span> </h2>
+            <h2> {{book.description}} </h2>
+            {% if request.user.is_authenticated %}
+            <div class="card-actions">
+              <a href="{% url "borrowed" book.id %}" class="btn btn-primary">Borrow now</a>
+            </div>
+            {% endif %}
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="flex flex-col gap-4 justify-center items-center my-8">
+  {% for comment in reviews %}
+    <div class="text-center border border-black rounded-xl space-y-4 p-4 w-[50%]">
+      <h1 class="text-xl font-bold"> {{comment}} </h1>
+      <h1> Email: {{comment.email}} </h1>
+      <small>Date: {{comment.date}} </small>
+      <h1 class="border border-black rounded p-2">Description: {{comment.comment}} </h1>
+    </div>
+  {% endfor %}
+</div>
+
+
+{% if bought %}
+<div class="text-center mb-4 mt-10">
+  <h1 class='text-2xl font-bold'>Give your review</h1>
+</div>
+
+<div class="w-[50%] mx-auto">
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" value="SUBMIT" class="btn btn-success">
+  </form>
+</div>
+{% endif %}
+{% endblock content %}

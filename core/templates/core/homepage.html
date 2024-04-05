@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class='p-4 border border-black m-4 rounded-xl'>
+    <div class="p-4">
+        <h1 class="font-extrabold text-4xl">Choose Your Genre</h1>
+    </div>
+    <hr>
+    
+    <div class="flex justify-between gap-4">
+        <div class="flex flex-col gap-4 p-4 w-[20%] border border-black rounded-xl">
+            <div class="btn btn-success">
+                <a href="{% url "homepage" %}" class="text-2xl">All</a>
+            </div>
+            {% for category in categories %}
+                <div class="btn btn-success">
+                    <a href="{% url "homepage_with_slug" category.slug %}" class="text-2xl">{{category}}</a>
+                    {% comment %} <a href="" class="text-2xl">{{model}}</a> {% endcomment %}
+                    {% comment %} <h1> {{model.slug}} </h1> {% endcomment %}
+                </div>
+            {% endfor %}
+            </div>
+
+            <div class="flex rounded-xl w-[80%]">
+                <div class="grid grid-cols-3 gap-4">
+                    {% for book in books %}
+                    <div class="card bg-base-100 shadow-xl border border-black">
+                        <figure class="p-4">
+                          <img src="{{book.picture.url}}" alt="Loading..." class="rounded-xl h-[200px]" />
+                        </figure>
+                        <div class="card-body items-center text-center">
+                          <h2 class="card-title text-2xl font-bold"> {{book.title}}</h2>
+                          <h2 class="font-bold">Price: <span class="text-red-500">{{book.price}}$</span> </h2>
+                          <h2> {{book.description | truncatewords:10}} </h2>
+                          <div class="card-actions">
+                            <a href="{% url "details" book.id %}" class="btn btn-primary">View more</a>
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                </div>
+            </div>
+    </div>
+</div>
+
+{% endblock content %}

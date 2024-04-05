@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="flex container gap-4 mx-auto">
+    <div class="border border-black p-4 rounded-xl bg-slage-300 text-center w-[80%] space-y-2">
+        <h1 class="text-2xl font-extrabold">Name: {{user.first_name}} {{user.last_name}} </h1>
+        <h1>Email: {{user.email}} </h1>
+        <h1 class="text-xl font-bold">Balance: {{user.account.balance}} </h1>
+        <a href="{% url "edit_profile" request.user.id %}" class="btn btn-success">Edit Profile</a> <br>
+        <a href="{% url "change_pass" %}" class="btn btn-error">Change Password</a>
+    </div>
+    <div class="p-4 w-[20%] flex flex-col justify-center items-center border border-black rounded-xl gap-4">
+        <a href="{% url "deposit" %}" class="btn btn-neutral">Deposit</a>
+        <a href="{% url "withdraw" %}" class="btn btn-neutral">Withdraw</a>
+    </div>
+</div>
+
+{% comment %} <h1>{{borrowing_details}}</h1> {% endcomment %}
+
+<div class="text-center mt-20">
+    <h1 class="text-2xl font-bold"><u>Borrowing Report</u></h1>
+</div>
+
+<div class="container mx-auto my-4">
+    <div class="overflow-x-auto">
+        <table class="table border border-black">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Book</th>
+              <th>Price</th>
+              <th>After_borrow</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for borrow in borrowing_details %}
+            <tr>
+            <td> {{borrow.borrowing_date}} </td>
+              <td> {{borrow.book.title}} </td>
+              <td> {{borrow.book.price}} </td>
+              <td> {{borrow.balance_after_borrowing}} </td>
+              <td>
+                <a href="{% url "return_book" borrow.id %}" class="btn btn-success">Return</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+</div>
+
+{% endblock content %}
