@@ -60,7 +60,7 @@ def borrowed(request, id):
     remain = acc.balance - obj.price
     
     if remain < 0:
-        messages.warning(request, "You do not have enough Money")
+        messages.error(request, "You do not have enough Money")
         return redirect('homepage')
 
     new_model = borrowings.models.BorrowingClass.objects.create(
